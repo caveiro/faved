@@ -1,0 +1,12 @@
+name: Faved
+services:
+  apache-php:
+    container_name: Faved-app
+    image: php:8.4-apache
+    restart: always
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html
+      - ./apache-conf:/etc/apache2/sites-enabled
+    ports:
+      - "${PORT:-8000}:80"

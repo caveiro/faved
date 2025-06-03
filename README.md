@@ -4,6 +4,10 @@ Faved is a simple self-hosted web application to store and organise web links. A
 
 100% free and open source. No ads, tracking, or data collection.
 
+![image](https://github.com/user-attachments/assets/70c9cf83-43bf-4c7d-8444-d6967aa3ae40)
+
+
+
 ## Features
 
 - Save bookmarks with titles, descriptions, URLs and custom notes from any desktop browser using a bookmarklet.
@@ -34,6 +38,8 @@ Visit `http://localhost:8000` in your browser to access Faved.
 - The first time you visit, you'll be prompted to set up the database. Just click "Initialize Database" to proceed and finish installation.
 
 ### Using the Bookmarklet
+
+<img src="https://github.com/user-attachments/assets/c4a4c95f-5cd4-49c1-88ce-1b88837e8c12" width="60%" />
 
 1. Look for the bookmarklet link "Add to Faved" at the top right corner of the Faved interface.
 2. Drag the link to your browser's bookmarks bar.

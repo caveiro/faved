@@ -4,17 +4,18 @@ require_once ROOT_DIR . '/utils/ItemForm.php';
 require_once ROOT_DIR . '/utils/TagData.php';
 require_once ROOT_DIR . '/utils/TagList.php';
 require_once ROOT_DIR . '/utils/TagRenderer.php';
+require_once ROOT_DIR . '/utils/PocketImporter.php';
 require_once ROOT_DIR . '/models/TagCreator.php';
 require_once ROOT_DIR . '/models/Repository.php';
 
-use Framework\ServiceContainer;
 use Framework\Exceptions\DatabaseNotFound;
+use Framework\ServiceContainer;
 use Models\TagCreator;
 
 // Bind DB services
 ServiceContainer::bind(PDO::class, function () {
 	$db_path = Config::DB_PATH;
-	if (!file_exists($db_path) ) {
+	if (!file_exists($db_path)) {
 		throw new DatabaseNotFound("Database file not found: {$db_path}");
 	}
 

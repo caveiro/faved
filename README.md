@@ -1,3 +1,5 @@
+> 🚀 [Pocket is shutting down on July 8, 2025](https://getpocket.com/farewell). Migrate all your data to Faved by uploading Pocket data export file. Keep your bookmarks safe and always accessible locally on you computer!
+
 # Faved
 
 Faved is a simple self-hosted web application to store and organise web links. All data is stored locally on your computer.
@@ -13,6 +15,7 @@ Faved is a simple self-hosted web application to store and organise web links. A
 - Save bookmarks with titles, descriptions, URLs and custom notes from any desktop browser using a bookmarklet.
 - Organize bookmarks with color-styled nested tags. Pin important tags at the top for quick access.
 - Super fast performance: loads full page with 2,000+ bookmarks in under 100ms.
+- Import bookmarks from Pocket: easily migrate your saved links, tags, collections and notes from Pocket by uploading the exported ZIP file.
 
 ## Requirements
 

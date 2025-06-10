@@ -54,7 +54,7 @@ class TagUpdateController implements ControllerInterface
 					continue;
 				}
 
-				$parent_tag_id = $tag_creator->createTag($tag_title, $parent_tag_id);
+				$parent_tag_id = $tag_creator->createTag($tag_title, '', $parent_tag_id);
 				$check_existing_parent = false;
 			}
 		}

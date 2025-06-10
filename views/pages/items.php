@@ -10,18 +10,25 @@
                    href="<?php echo $url_builder->build('/', ['tag' => 'notag']); ?>">Untagged </a>
             </div>
             <ul class="tags-list list-group">
-                <?php echo $pinned_tags_output; ?>
-                <?php echo $unpinned_tags_output; ?>
+				<?php echo $pinned_tags_output; ?>
+				<?php echo $unpinned_tags_output; ?>
             </ul>
         </div>
     </div>
     <div class="col-md-10">
         <div class="mb-4 d-flex justify-content-between align-items-center gap-2 flex-wrap">
-            <a class="btn btn-outline-primary"
-               href="<?php echo $url_builder->build('/item', ['return' => urlencode($_SERVER['REQUEST_URI'])]); ?>"
-               id="add-item-button" role="button">
-                New item
-            </a>
+            <div>
+                <a class="btn btn-outline-primary me-2"
+                   href="<?php echo $url_builder->build('/item', ['return' => urlencode($_SERVER['REQUEST_URI'])]); ?>"
+                   id="add-item-button" role="button">
+                    New item
+                </a>
+                <a class="btn btn-outline-danger"
+                   href="<?php echo $url_builder->build('/pocket-import'); ?>"
+                   role="button">
+                    Import from Pocket
+                </a>
+            </div>
             <span><?php echo count($items); ?> items</span>
             <span>
                 Bookmarklet: <a
@@ -70,14 +77,14 @@
                         </small>
                     </td>
                     <td style="max-width:400px; word-wrap: break-word;">
-						<?php echo htmlentities($item['description']); ?>
+						<?php echo nl2br(htmlentities($item['description'])); ?>
 
 						<?php if (!empty($item['comments'])) : ?>
                             <div style="margin-top: 10px;">
                                 <b>Notes</b>
                             </div>
                             <div>
-								<?php echo htmlentities($item['comments']); ?>
+								<?php echo nl2br(htmlentities($item['comments'])); ?>
                             </div>
 						<?php endif; ?>
                     </td>

@@ -54,7 +54,7 @@ class ItemCreateUpdateController implements ControllerInterface
 						$parent = $tag_id_by_title[$segment];
 						continue;
 					}
-					$parent = $tag_creator->createTag($segment, $parent);
+					$parent = $tag_creator->createTag($segment, '', $parent);
 					$tag_id_by_title[$segment] = $parent;
 				}
 				return $parent;

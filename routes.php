@@ -4,8 +4,10 @@ use Controllers\ItemCreateUpdateController;
 use Controllers\ItemDeleteController;
 use Controllers\ItemEditController;
 use Controllers\ItemsController;
-use Controllers\SetupViewController;
+use Controllers\PocketImportViewController;
+use Controllers\PocketImportRunController;
 use Controllers\SetupRunController;
+use Controllers\SetupViewController;
 use Controllers\TagDeleteController;
 use Controllers\TagEditController;
 use Controllers\TagUpdateController;
@@ -27,6 +29,10 @@ return [
 		'GET' => ItemEditController::class,
 		'POST' => ItemCreateUpdateController::class,
 		'DELETE' => ItemDeleteController::class,
+	],
+	'/pocket-import' => [
+		'GET' => PocketImportViewController::class,
+		'POST' => PocketImportRunController::class,
 	],
 ];
 

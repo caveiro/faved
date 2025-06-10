@@ -66,24 +66,24 @@ class Repository
 		$stmt->execute([':item_id' => $item_id]);
 	}
 
-	protected function attachItemTags(array $item_tags, int $item_id)
+	public function attachItemTags(array $item_tags, int $item_id)
 	{
 		if (empty($item_tags)) {
 			return;
 		}
 
-		$sqlData = [];
+		$sql_data = [];
 
 		foreach ($item_tags as $tag_id) {
-			array_push($sqlData, $item_id, (int)$tag_id);
+			array_push($sql_data, $item_id, (int)$tag_id);
 		}
 
-		$sql = 'INSERT INTO items_tags (item_id, tag_id) VALUES ' . implode(',', array_fill(0, count($sqlData) / 2, '(?, ?)'));
+		$sql = 'INSERT INTO items_tags (item_id, tag_id) VALUES ' . implode(',', array_fill(0, count($sql_data) / 2, '(?, ?)'));
 		$stmt = $this->pdo->prepare($sql);
-		$stmt->execute($sqlData);
+		$stmt->execute($sql_data);
 	}
 
-	public function createItem($title, $description, $url, $comments, $image)
+	public function createItem($title, $description, $url, $comments, $image, $created_at = null)
 	{
 		$stmt = $this->pdo->prepare(
 			'INSERT INTO items (title, description, url, comments, image, created_at)
@@ -95,7 +95,7 @@ class Repository
 			':url' => $url,
 			':comments' => $comments,
 			':image' => $image,
-			':created_at' => date('Y-m-d H:i:s'),
+			':created_at' => $created_at ?? date('Y-m-d H:i:s'),
 		]);
 		return $this->pdo->lastInsertId();
 	}

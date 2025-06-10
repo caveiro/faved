@@ -4,10 +4,10 @@ namespace Models;
 
 class TagCreator
 {
-	private $stmt;
 	private $pdo;
+	private $stmt;
 
-	public function __construct($pdo)
+	public function __construct(\PDO $pdo)
 	{
 		$this->pdo = $pdo;
 		$this->stmt = $pdo->prepare(
@@ -16,11 +16,11 @@ class TagCreator
 		);
 	}
 
-	public function createTag(string $tag_title, int $tag_parent)
+	public function createTag(string $tag_title, string $tag_description, int $tag_parent)
 	{
 		$this->stmt->execute([
 			':title' => $tag_title,
-			':description' => '',
+			':description' => $tag_description,
 			':color' => 'gray',
 			':parent' => $tag_parent,
 			':pinned' => 0,

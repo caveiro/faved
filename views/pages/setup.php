@@ -3,7 +3,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    Database Setup
+                    <h4 class="m-0">Database Setup</h4>
                 </div>
                 <div class="card-body">
 					<?php include ROOT_DIR . '/views/partials/flash-messages.php'; ?>

@@ -34,7 +34,7 @@ class SetupViewController implements ControllerInterface
 		}
 
 		return renderPage('setup', 'primary', [
-			'db_file' => str_replace(ROOT_DIR, '', Config::DB_PATH),
+			'db_file' => str_replace(ROOT_DIR, '', Config::getDBPath()),
 			'url_builder' => $url_builder,
 			'csrf_token' => CSRFProtection::generateToken(),
 			'flash' => FlashMessages::pull(),

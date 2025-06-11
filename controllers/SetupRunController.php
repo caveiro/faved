@@ -31,7 +31,7 @@ class SetupRunController
 			return;
 		}
 
-		$db_path = Config::DB_PATH;
+		$db_path = Config::getDBPath();
 		$pdo = new PDO("sqlite:{$db_path}");
 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$repository = new Repository($pdo);

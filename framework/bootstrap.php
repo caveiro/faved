@@ -39,7 +39,7 @@ date_default_timezone_set('UTC');
 // Bind services
 ServiceContainer::bind(UrlBuilder::class, function () {
 	$url_builder = new UrlBuilder(
-		'/index.php'
+		'index.php'
 	);
 	return $url_builder;
 });

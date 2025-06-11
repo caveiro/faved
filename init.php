@@ -14,7 +14,7 @@ use Models\TagCreator;
 
 // Bind DB services
 ServiceContainer::bind(PDO::class, function () {
-	$db_path = Config::DB_PATH;
+	$db_path = Config::getDBPath();
 	if (!file_exists($db_path)) {
 		throw new DatabaseNotFound("Database file not found: {$db_path}");
 	}

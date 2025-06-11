@@ -6,6 +6,8 @@ Faved is a simple self-hosted web application to store and organise web links. A
 
 100% free and open source. No ads, tracking, or data collection.
 
+🌐 **[Try Live Demo](https://demo.faved.dev/)**
+
 ![image](https://github.com/user-attachments/assets/70c9cf83-43bf-4c7d-8444-d6967aa3ae40)
 
 

@@ -7,8 +7,9 @@ a:hover {
     text-decoration: none;
 }
 
+
 /*
-* Select2 Styling
+ * Select2 Styling
  */
 .select2-container-multi .select2-choices .select2-search-choice {
     background-color: RGBA(108, 117, 125, 1);
@@ -182,7 +183,7 @@ a:hover {
 
 
 /*
-    * Tag styles
+ * Tag styles
  */
 .tag-path .tag-segment {
     display: none;
@@ -241,4 +242,12 @@ ul.tags-list ul {
 
 .tags-list > li {
     padding-bottom: 12px;
+}
+
+@media (min-width: 768px) {
+    .sidebar-content {
+        overflow-y: auto;
+        max-height: calc(100vh - 40px);
+        margin-bottom: 15px;
+    }
 }

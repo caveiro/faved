@@ -47,18 +47,15 @@
 
 		<?php include ROOT_DIR . '/views/partials/flash-messages.php'; ?>
 
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>Image / Title / Url / Tags / Created at</th>
-                <th>Description / Notes</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
+        <div class="d-sm-table">
+            <div class="d-none d-sm-table-row fw-bold">
+                <div class="d-table-cell pb-4 pe-2">Image / Title / Url / Tags / Created at</div>
+                <div class="d-none d-sm-table-cell pb-4 pe-2" style="width: 45%">Description / Notes</div>
+                <div class="d-table-cell pb-4">Actions</div>
+            </div>
 			<?php foreach ($items as $item_id => $item) : ?>
-                <tr>
-                    <td style="max-width:400px; word-wrap: break-word;">
+                <div class="d-table-row">
+                    <div class="d-table-cell text-break pb-4 pe-2">
 						<?php if (!empty($item['image'])) : ?>
                             <a href="<?php echo htmlspecialchars($item['image']); ?>"
                                style="margin-right:10px; float:left;">
@@ -67,37 +64,46 @@
                             </a>
 						<?php endif; ?>
 
-                        <h6 style="margin:5px 0;">
+                        <h6 class="mb-2">
 							<?php echo htmlspecialchars($item['title']); ?>
                         </h6>
+
 						<?php if ($item['url']) : ?>
-                            <a href="<?php echo htmlspecialchars($item['url']); ?>"
-                               style="display:block; margin:5px 0;">
-								<?php echo htmlspecialchars($item['url']); ?>
-                            </a>
+                            <div class="my-2">
+                                <a href="<?php echo htmlspecialchars($item['url']); ?>">
+									<?php echo htmlspecialchars($item['url']); ?>
+                                </a>
+                            </div>
 						<?php endif; ?>
+
+                        <div class="d-sm-none text-break my-2">
+							<?php echo nl2br(htmlentities($item['description'])); ?>
+
+							<?php if (!empty($item['comments'])) : ?>
+                                <div class="bi bi-chat-left-text mt-2">
+									<?php echo nl2br(htmlentities($item['comments'])); ?>
+                                </div>
+							<?php endif; ?>
+                        </div>
 
 						<?php foreach ($item['tags'] as $tag_id) : ?>
 							<?php echo $tag_renderer->render($tag_id); ?>
 						<?php endforeach; ?>
 
-                        <small>
+                        <small class="text-nowrap d-block d-md-inline" style="line-height: 2.5">
 							<?php echo $item['created_at']; ?>
                         </small>
-                    </td>
-                    <td style="max-width:400px; word-wrap: break-word;">
+                    </div>
+                    <div class="d-none d-sm-table-cell text-break pb-4 pe-2">
 						<?php echo nl2br(htmlentities($item['description'])); ?>
 
 						<?php if (!empty($item['comments'])) : ?>
-                            <div style="margin-top: 10px;">
-                                <b>Notes</b>
-                            </div>
-                            <div>
+                            <div class="bi bi-chat-left-text mt-2">
 								<?php echo nl2br(htmlentities($item['comments'])); ?>
                             </div>
 						<?php endif; ?>
-                    </td>
-                    <td>
+                    </div>
+                    <div class="d-table-cell">
                         <div class="dropdown">
                             <button type="button" class="btn btn-outline-secondary"
                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -113,24 +119,23 @@
                                 <li>
 
                                     <button type="button"
-                                        class="dropdown-item"
-                                        onclick="submitRequest(
-                                            'DELETE',
-                                            '<?php echo $url_builder->build('/item', ['item-id' => $item_id, 'return' => urlencode($_SERVER['REQUEST_URI'])]); ?>',
-                                            '<?php echo htmlspecialchars($csrf_token); ?>',
-                                            'Are you sure you want to delete this item?'
-                                        )"
+                                            class="dropdown-item"
+                                            onclick="submitRequest(
+                                                    'DELETE',
+                                                    '<?php echo $url_builder->build('/item', ['item-id' => $item_id, 'return' => urlencode($_SERVER['REQUEST_URI'])]); ?>',
+                                                    '<?php echo htmlspecialchars($csrf_token); ?>',
+                                                    'Are you sure you want to delete this item?'
+                                                    )"
                                     >
                                         Delete
                                     </button>
                                 </li>
                             </ul>
                         </div>
-                    </td>
-                </tr>
+                    </div>
+                </div>
 			<?php endforeach; ?>
-            </tbody>
-        </table>
+        </div>
         <div class="text-center">
 			<?php echo count($items); ?>
 			<?php echo count($items) !== 1 ? 'items' : 'item'; ?>

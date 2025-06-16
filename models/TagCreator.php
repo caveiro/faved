@@ -16,14 +16,14 @@ class TagCreator
 		);
 	}
 
-	public function createTag(string $tag_title, string $tag_description, int $tag_parent)
+	public function createTag(string $tag_title, string $tag_description, int $tag_parent, $color = 'gray', bool $pinned = false)
 	{
 		$this->stmt->execute([
 			':title' => $tag_title,
 			':description' => $tag_description,
-			':color' => 'gray',
+			':color' => $color,
 			':parent' => $tag_parent,
-			':pinned' => 0,
+			':pinned' => (int) $pinned,
 			':created_at' => date('Y-m-d H:i:s')
 		]);
 

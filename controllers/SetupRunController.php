@@ -50,7 +50,7 @@ class SetupRunController
 		 * Add demo content
 		 */
 		$tag_creator = ServiceContainer::get(TagCreator::class);
-		$demo_content_tag_id = $tag_creator->createTag('Demo links', 'These are links for demo purposes', 0, 'aqua', true);
+		$demo_content_tag_id = $tag_creator->createTag('Demo links', 'Used for tagging demo content', 0, 'aqua', true);
 		$software_category_tag_id = $tag_creator->createTag('Software category', 'Software categories are nested within this tag', 0, 'red', false);
 		$bookmark_manager_category_tag_id = $tag_creator->createTag('Bookmark managers', '', $software_category_tag_id, 'gray', false);
 		$github_repos_tag_id = $tag_creator->createTag('GitHub repositories', '', 0, 'gray', false);

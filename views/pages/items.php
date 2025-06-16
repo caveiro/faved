@@ -16,8 +16,8 @@
         </div>
     </div>
     <div class="col-md-10">
-        <div class="mb-4 d-flex justify-content-between align-items-center gap-2 flex-wrap">
-            <div>
+        <div class="mb-4 row gy-3">
+            <div class="col-12 text-center col-md text-md-start">
                 <a class="btn btn-outline-primary me-2"
                    href="<?php echo $url_builder->build('/item', ['return' => urlencode($_SERVER['REQUEST_URI'])]); ?>"
                    id="add-item-button" role="button">
@@ -29,8 +29,7 @@
                     Import from Pocket
                 </a>
             </div>
-            <span><?php echo count($items); ?> items</span>
-            <span>
+            <span  class="col-12 text-center col-md text-md-end">
                 Bookmarklet: <a
                         href='javascript:(function(){ var meta_description = document.querySelector("meta[name=\"description\"]"); if (meta_description) { meta_description = meta_description.getAttribute("content"); } var rspW=700, rspH=700, rspL=parseInt((screen.width/2)-(rspW/2)), rspT=parseInt((screen.height/2)-(rspH/2)); window.open("http://<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME']; ?>?route=/item&url="+encodeURIComponent(window.location.href)+"&title="+encodeURIComponent(document.title)+"&description="+((meta_description) ? encodeURIComponent(meta_description) : ""),"add-to-faved","width="+rspW+",height="+rspH+",resizable=yes,scrollbars=yes,status=false,location=false,toolbar=false,left="+rspL+",top="+rspT) })();'>Add to Faved</a>
             </span>
@@ -90,9 +89,9 @@
                     </td>
                     <td>
                         <div class="dropdown">
-                            <button type="button" class="btn btn-outline-secondary dropdown-toggle"
+                            <button type="button" class="btn btn-outline-secondary"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                Action <span class="caret"></span>
+                                <i class="bi bi-three-dots-vertical"></i>
                             </button>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
@@ -122,5 +121,6 @@
 			<?php endforeach; ?>
             </tbody>
         </table>
+        <div class="text-center"><?php echo count($items); ?> <?php echo count($items) !== 1 ? 'items' : 'item'; ?></div>
     </div>
 </div>

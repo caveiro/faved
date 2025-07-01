@@ -1,15 +1,19 @@
 > 🚀 [Pocket is shutting down on July 8, 2025](https://getpocket.com/farewell). Migrate all your data to Faved by uploading Pocket data export file. Keep your bookmarks safe and always accessible locally on you computer!
 
-# Faved
+  
+#  <img height="27px" src="https://github.com/user-attachments/assets/f96ecc14-bc29-4769-828e-c94cb3c87b9e" /> Faved
 
 Faved is a simple self-hosted web application to store and organise web links. All data is stored locally on your computer.
 
 100% free and open source. No ads, tracking, or data collection.
 
-🌐 **[Try Live Demo](https://demo.faved.dev/)**
+<div align="center">
+  
+  🧪 **[Try Live Demo](https://demo.faved.dev/)** | 🌐 **[Visit Website](https://faved.dev/)** | 📚 **[Read Blog](https://faved.dev/blog)**
+
+</div>
 
 ![image](https://github.com/user-attachments/assets/70c9cf83-43bf-4c7d-8444-d6967aa3ae40)
-
 
 
 ## Features

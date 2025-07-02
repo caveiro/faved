@@ -50,7 +50,7 @@
         <div class="d-table w-100">
             <div class="d-none d-sm-table-row fw-bold">
                 <div class="d-table-cell pb-4 pe-2">Image / Title / Url / Tags / Created at</div>
-                <div class="d-none d-sm-table-cell pb-4 pe-2" style="width: 45%">Description / Notes</div>
+                <div class="d-none d-sm-table-cell pb-4 pe-2" style="width: 45%">Description / Comments</div>
                 <div class="d-table-cell pb-4">Actions</div>
             </div>
 			<?php foreach ($items as $item_id => $item) : ?>

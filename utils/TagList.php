@@ -35,7 +35,7 @@ class TagList
 			$html_attrs = '';
 			$description_icon = '';
 			if (!empty($tag_description)) {
-				$html_attrs = 'data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-content="' . htmlspecialchars($tag_description) . '"';
+				$html_attrs = 'data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-trigger="hover" data-bs-html="true"  data-bs-content="' . nl2br( htmlspecialchars($tag_description)) . '"';
 				$description_icon = ' <i class="bi bi-sticky"></i>';
 			}
 

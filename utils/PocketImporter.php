@@ -27,18 +27,26 @@ class PocketImporter
 		[$collections, $collection_bookmarks] = $this->extractDataFromCollections($temp_dir);
 		[$tags, $statuses, $items] = $this->extractDataFromLinks($temp_dir, $collection_bookmarks);
 
-		// Create tags from Pocket collections, tags and statuses
 		$existing_tags = $this->repository->getTags();
-		$map = $this->writeTags($existing_tags, [self::COLLECTIONS_PARENT_TAG_NAME => self::COLLECTIONS_PARENT_TAG_DESCRIPTION], 0);
-		$collections_parent_tag_id = $map[self::COLLECTIONS_PARENT_TAG_NAME];
-		$collection_map = $this->writeTags($existing_tags, $collections, $collections_parent_tag_id);
+
+		// Create tags from Pocket collections
+		$collection_tag_map = [];
+		if (!empty($collections)) {
+			$collection_parent_tag_map = $this->writeTags($existing_tags, [self::COLLECTIONS_PARENT_TAG_NAME => self::COLLECTIONS_PARENT_TAG_DESCRIPTION], 0);
+			$collection_parent_tag_id = $collection_parent_tag_map[self::COLLECTIONS_PARENT_TAG_NAME];
+			$collection_tag_map = $this->writeTags($existing_tags, $collections, $collection_parent_tag_id);
+		}
+
+		// Create tags from Pocket tags
 		$tag_map = $this->writeTags($existing_tags, $tags, 0);
-		$map = $this->writeTags($existing_tags, [self::STATUS_PARENT_TAG_NAME => self::STATUS_PARENT_TAG_DESCRIPTION], 0);
-		$status_parent_tag_id = $map[self::STATUS_PARENT_TAG_NAME];
-		$status_map = $this->writeTags($existing_tags, $statuses, $status_parent_tag_id);
+
+		// Create tags from Pocket statuses
+		$status_parent_tag_map = $this->writeTags($existing_tags, [self::STATUS_PARENT_TAG_NAME => self::STATUS_PARENT_TAG_DESCRIPTION], 0);
+		$status_parent_tag_id = $status_parent_tag_map[self::STATUS_PARENT_TAG_NAME];
+		$status_tag_map = $this->writeTags($existing_tags, $statuses, $status_parent_tag_id);
 
 		// Create bookmark items
-		$this->writeItems($items, $tag_map, $collection_map, $status_map);
+		$this->writeItems($items, $tag_map, $collection_tag_map, $status_tag_map);
 
 		return count($items);
 	}

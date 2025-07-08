@@ -4,11 +4,11 @@ namespace Framework;
 
 
 use Exception;
+use Framework\Exceptions\DatabaseNotFound;
 use Framework\Exceptions\DataWriteException;
 use Framework\Exceptions\ForbiddenException;
 use Framework\Exceptions\NotFoundException;
 use Framework\Exceptions\ValidationException;
-use Framework\Exceptions\DatabaseNotFound;
 
 class Application
 {
@@ -28,29 +28,30 @@ class Application
 			$controller_class = $router->match_controller($route, $method);
 
 			$controller = new $controller_class();
-			$output = $controller();
+			$response = $controller();
 		} catch (DatabaseNotFound $e) {
 			$url_builder = ServiceContainer::get(UrlBuilder::class);
-			header("Location: " . $url_builder->build('/setup'));
-			return;
-		} catch (ValidationException | DataWriteException $e) {
+			$response = redirect($url_builder->build('/setup'));
+		} catch (ValidationException|DataWriteException $e) {
 			FlashMessages::set('error', $e->getMessage());
 			$url_builder = ServiceContainer::get(UrlBuilder::class);
 			$referrer = $_SERVER['HTTP_REFERER'] ?? $url_builder->build('/');
-			header("Location: " . $referrer);
-			return;
+			$response = redirect($referrer);
 		} catch (ForbiddenException $e) {
 			http_response_code(403);
-			$output = renderPage('error', 'primary', ['message' => "403 - {$e->getMessage()}"]);
+			$response = page('error', ['message' => "403 - {$e->getMessage()}"])
+				->layout('primary');
 		} catch (NotFoundException $e) {
 			http_response_code(404);
-			$output = renderPage('error', 'primary', ['message' => "404 - {$e->getMessage()}"]);
+			$response = page('error', ['message' => "404 - {$e->getMessage()}"])
+				->layout('primary');
 		} catch (Exception $e) {
 			http_response_code(500);
-			$output = renderPage('error', 'primary', ['message' => "500 - {$e->getMessage()}"]);
+			$response = page('error', ['message' => "500 - {$e->getMessage()}"])
+				->layout('primary');
 		}
 
-		echo $output;
+		$response->yield();
 	}
 }
 

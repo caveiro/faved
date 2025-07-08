@@ -5,14 +5,17 @@ namespace Controllers;
 
 use Framework\ControllerInterface;
 use Framework\FlashMessages;
+use Framework\Responses\ResponseInterface;
 use Framework\ServiceContainer;
 use Framework\UrlBuilder;
 use Models\Repository;
 use Models\TagCreator;
+use function Framework\page;
+use function Framework\redirect;
 
 class ItemCreateUpdateController implements ControllerInterface
 {
-	public function __invoke()
+	public function __invoke() : ResponseInterface
 	{
 		$repository = ServiceContainer::get(Repository::class);
 		$url_builder = ServiceContainer::get(UrlBuilder::class);
@@ -70,22 +73,22 @@ class ItemCreateUpdateController implements ControllerInterface
 			case 'save-as-copy':
 				FlashMessages::set('success', 'Item saved successfully');
 				$redirect_url = $url_builder->build('/item', ['item-id' => $item_id]);
-				header("Location: " . $redirect_url);
+				$response = redirect($redirect_url);
 				break;
 			case 'save-back':
 				FlashMessages::set('success', 'Item saved successfully');
 				$redirect_url = $_POST['return'] ?? $url_builder->build('/');
-				header("Location: " . $redirect_url);
+				$response = redirect( $redirect_url);
 				break;
 			case 'save-new':
 				FlashMessages::set('success', 'Item saved successfully');
 				$redirect_url = $url_builder->build('/item');
-				header("Location: " . $redirect_url);
+				$response = redirect( $redirect_url);
 				break;
 			case 'save-close':
-				echo 'Saved <script> setTimeout(function() { window.close() }, 500) </script>';
-				exit;
+				$response = page('saved-close', [])->layout('primary');
 				break;
 		}
+		return $response;
 	}
 }

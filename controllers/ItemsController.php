@@ -6,19 +6,20 @@ use Framework\ControllerInterface;
 use Framework\CSRFProtection;
 use Framework\Exceptions\NotFoundException;
 use Framework\FlashMessages;
+use Framework\Responses\ResponseInterface;
 use Framework\ServiceContainer;
 use Framework\UrlBuilder;
 use Models\Repository;
 use Utils\TagList;
 use Utils\TagRenderer;
-use function Framework\renderPage;
+use function Framework\page;
 use function Utils\getPinnedTags;
 use function Utils\getTagColors;
 use function Utils\groupTagsByParent;
 
 class ItemsController implements ControllerInterface
 {
-	public function __invoke()
+	public function __invoke(): ResponseInterface
 	{
 		$selected_tag = $_GET['tag'] ?? null;
 
@@ -60,7 +61,7 @@ class ItemsController implements ControllerInterface
 
 		$csrf_token = CSRFProtection::generateToken();
 
-		return renderPage('items', 'primary', compact(
+		return page('items', compact(
 			'url_builder',
 			'items',
 			'tag_renderer',
@@ -69,6 +70,6 @@ class ItemsController implements ControllerInterface
 			'flash',
 			'selected_tag',
 			'csrf_token',
-		));
+		))->layout('primary');
 	}
 }

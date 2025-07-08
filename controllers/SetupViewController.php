@@ -7,14 +7,16 @@ use Framework\ControllerInterface;
 use Framework\CSRFProtection;
 use Framework\Exceptions\DatabaseNotFound;
 use Framework\FlashMessages;
+use Framework\Responses\ResponseInterface;
 use Framework\ServiceContainer;
 use Framework\UrlBuilder;
 use Models\Repository;
-use function Framework\renderPage;
+use function Framework\page;
+use function Framework\redirect;
 
 class SetupViewController implements ControllerInterface
 {
-	public function __invoke()
+	public function __invoke(): ResponseInterface
 	{
 		try {
 			// Check if database already exists
@@ -29,15 +31,14 @@ class SetupViewController implements ControllerInterface
 
 		if ($db_exists) {
 			FlashMessages::set('info', 'Database already exists');
-			header("Location: " . $url_builder->build('/'));
-			return;
+			return redirect($url_builder->build('/'));
 		}
 
-		return renderPage('setup', 'primary', [
+		return page('setup', [
 			'db_file' => str_replace(ROOT_DIR, '', Config::getDBPath()),
 			'url_builder' => $url_builder,
 			'csrf_token' => CSRFProtection::generateToken(),
 			'flash' => FlashMessages::pull(),
-		]);
+		])->layout('primary');
 	}
 }

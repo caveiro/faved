@@ -5,24 +5,25 @@ namespace Controllers;
 use Exception;
 use Framework\ControllerInterface;
 use Framework\FlashMessages;
+use Framework\Responses\ResponseInterface;
 use Framework\ServiceContainer;
 use Framework\UrlBuilder;
 use Models\Repository;
 use Models\TagCreator;
 use Utils\PocketImporter;
 use ZipArchive;
+use function Framework\redirect;
 
 class PocketImportRunController implements ControllerInterface
 {
-	public function __invoke()
+	public function __invoke(): ResponseInterface
 	{
 		$url_builder = ServiceContainer::get(UrlBuilder::class);
 
 		// Check if file was uploaded
 		if (!isset($_FILES['pocket-zip']) || $_FILES['pocket-zip']['error'] !== UPLOAD_ERR_OK) {
 			FlashMessages::set('error', 'No file uploaded or upload error');
-			header('Location: ' . $url_builder->build('/pocket-import'));
-			return;
+			return redirect( $url_builder->build('/pocket-import'));
 		}
 
 		$uploaded_file = $_FILES['pocket-zip'];
@@ -30,16 +31,14 @@ class PocketImportRunController implements ControllerInterface
 		// Check if the file is a ZIP
 		if ($uploaded_file['type'] !== 'application/zip' && $uploaded_file['type'] !== 'application/x-zip-compressed') {
 			FlashMessages::set('error', 'Uploaded file is not a ZIP archive');
-			header('Location: ' . $url_builder->build('/pocket-import'));
-			return;
+			return redirect( $url_builder->build('/pocket-import'));
 		}
 
 		// Create a temporary directory
 		$temp_dir = sys_get_temp_dir() . '/pocket_import_' . uniqid('', false);
 		if (!mkdir($temp_dir, 0777, true) && !is_dir($temp_dir)) {
 			FlashMessages::set('error', 'Uploaded file is not a ZIP archive');
-			header('Location: ' . $url_builder->build('/pocket-import'));
-			return;
+			return redirect( $url_builder->build('/pocket-import'));
 		}
 		try {
 			// Extract the ZIP file
@@ -62,13 +61,13 @@ class PocketImportRunController implements ControllerInterface
 			$this->removeDirectory($temp_dir);
 
 			FlashMessages::set('success', $import_count . ' Pocket bookmarks imported successfully');
-			header('Location: ' . $url_builder->build('/'));
+			return redirect( $url_builder->build('/'));
 		} catch (Exception $e) {
 			// Clean up on error
 			$this->removeDirectory($temp_dir);
 
 			FlashMessages::set('error', 'Error importing bookmarks: ' . $e->getMessage());
-			header('Location: ' . $url_builder->build('/pocket-import'));
+			return redirect( $url_builder->build('/pocket-import'));
 		}
 	}
 

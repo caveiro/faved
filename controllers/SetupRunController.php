@@ -5,15 +5,17 @@ namespace Controllers;
 use Config;
 use Framework\Exceptions\DatabaseNotFound;
 use Framework\FlashMessages;
+use Framework\Responses\ResponseInterface;
 use Framework\ServiceContainer;
 use Framework\UrlBuilder;
 use Models\Repository;
 use Models\TagCreator;
 use PDO;
+use function Framework\redirect;
 
 class SetupRunController
 {
-	public function __invoke()
+	public function __invoke(): ResponseInterface
 	{
 		try {
 			// Check if database already exists
@@ -28,8 +30,7 @@ class SetupRunController
 
 		if ($db_exists) {
 			FlashMessages::set('info', 'Database already exists');
-			header("Location: " . $url_builder->build('/'));
-			return;
+			return redirect( $url_builder->build('/'));
 		}
 
 		$db_path = Config::getDBPath();
@@ -42,8 +43,7 @@ class SetupRunController
 
 		if (!$result) {
 			FlashMessages::set('error', 'Failed to set up database');
-			header("Location: " . $url_builder->build('/setup'));
-			return;
+			return redirect( $url_builder->build('/setup'));
 		}
 
 		/*
@@ -126,6 +126,6 @@ class SetupRunController
 		$repository->attachItemTags([$welcome_tag_id], $item_id);
 
 		FlashMessages::set('success', 'Database setup completed successfully');
-		header("Location: " . $url_builder->build('/'));
+		return redirect( $url_builder->build('/'));
 	}
 }

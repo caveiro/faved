@@ -5,14 +5,16 @@ namespace Controllers;
 use Framework\ControllerInterface;
 use Framework\Exceptions\ValidationException;
 use Framework\FlashMessages;
+use Framework\Responses\ResponseInterface;
 use Framework\ServiceContainer;
 use Framework\UrlBuilder;
 use Models\Repository;
 use Models\TagCreator;
+use function Framework\redirect;
 
 class TagUpdateController implements ControllerInterface
 {
-	public function __invoke()
+	public function __invoke(): ResponseInterface
 	{
 		if (!isset($_GET['tag-id'], $_POST['title'], $_POST['description'], $_POST['parent'], $_POST['color'])) {
 			throw new ValidationException('Invalid input data for tag update');
@@ -69,6 +71,6 @@ class TagUpdateController implements ControllerInterface
 		);
 
 		FlashMessages::set('success', 'Tag updated successfully');
-		header("Location: " . $url_builder->build('/'));
+		return redirect($url_builder->build('/'));
 	}
 }

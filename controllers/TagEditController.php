@@ -6,17 +6,18 @@ use Framework\ControllerInterface;
 use Framework\CSRFProtection;
 use Framework\Exceptions\NotFoundException;
 use Framework\FlashMessages;
+use Framework\Responses\ResponseInterface;
 use Framework\ServiceContainer;
 use Framework\UrlBuilder;
 use Models\Repository;
 use Utils\TagData;
-use function Framework\renderPage;
+use function Framework\page;
 use function Utils\getTagColors;
 use function Utils\groupTagsByParent;
 
 class TagEditController implements ControllerInterface
 {
-	public function __invoke()
+	public function __invoke(): ResponseInterface
 	{
 		$repository = ServiceContainer::get(Repository::class);
 		$all_tags = $repository->getTags();
@@ -39,7 +40,7 @@ class TagEditController implements ControllerInterface
 		$flash = FlashMessages::pull();
 		$csrf_token = CSRFProtection::generateToken();
 
-		return renderPage('tag-edit', 'primary', compact(
+		return page('tag-edit', compact(
 			'tag',
 			'tag_id',
 			'colors',
@@ -47,6 +48,6 @@ class TagEditController implements ControllerInterface
 			'tags_option_list',
 			'flash',
 			'csrf_token'
-		));
+		))->layout('primary');
 	}
 }

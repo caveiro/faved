@@ -2,18 +2,20 @@
 
 namespace Framework;
 
-function renderPage($page_name, $layout_name, $data)
+
+use Framework\Responses\PageResponse;
+use Framework\Responses\RedirectResponse;
+
+function page($page_name, $data)
 {
-	extract($data);
-
-	ob_start();
-	require ROOT_DIR . "/views/pages/{$page_name}.php";
-	$content = ob_get_clean();
-
-	ob_start();
-	require ROOT_DIR . "/views/layouts/{$layout_name}.php";
-	return ob_get_clean();
+	return new PageResponse($page_name, $data);
 }
+
+function redirect($location, $code = 303)
+{
+	return new RedirectResponse($location, $code);
+}
+
 
 function flattenArray(array $array, string $prefix = ''): array
 {

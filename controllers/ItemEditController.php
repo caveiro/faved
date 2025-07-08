@@ -6,18 +6,19 @@ use Framework\ControllerInterface;
 use Framework\CSRFProtection;
 use Framework\Exceptions\NotFoundException;
 use Framework\FlashMessages;
+use Framework\Responses\ResponseInterface;
 use Framework\ServiceContainer;
 use Framework\UrlBuilder;
 use Models\Repository;
 use Utils\ItemForm;
 use Utils\TagData;
-use function Framework\renderPage;
+use function Framework\page;
 use function Utils\findURLMatches;
 use function Utils\groupTagsByParent;
 
 class ItemEditController implements ControllerInterface
 {
-	public function __invoke()
+	public function __invoke(): ResponseInterface
 	{
 		$item_id = $_GET['item-id'] ?? null;
 
@@ -91,7 +92,7 @@ class ItemEditController implements ControllerInterface
 
 		$csrf_token = CSRFProtection::generateToken();
 
-		return renderPage('item-edit', 'primary', compact(
+		return page('item-edit', compact(
 			'return_url',
 			'forms',
 			'messages',
@@ -99,6 +100,6 @@ class ItemEditController implements ControllerInterface
 			'tags_option_list',
 			'flash',
 			'csrf_token'
-		));
+		))->layout('primary');
 	}
 }

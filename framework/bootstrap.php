@@ -8,6 +8,9 @@ require_once ROOT_DIR . '/framework/ServiceContainer.php';
 require_once ROOT_DIR . '/framework/UrlBuilder.php';
 require_once ROOT_DIR . '/framework/FlashMessages.php';
 require_once ROOT_DIR . '/framework/CSRFProtection.php';
+require_once ROOT_DIR . '/framework/responses/ResponseInterface.php';
+require_once ROOT_DIR . '/framework/responses/RedirectResponse.php';
+require_once ROOT_DIR . '/framework/responses/PageResponse.php';
 require_once ROOT_DIR . '/framework/exceptions/NotFoundException.php';
 require_once ROOT_DIR . '/framework/exceptions/ValidationException.php';
 require_once ROOT_DIR . '/framework/exceptions/DataWriteException.php';
@@ -28,9 +31,9 @@ foreach (glob(ROOT_DIR . "/controllers/*.php") as $controller_file) {
 }
 
 use Framework\Application;
+use Framework\Middleware\CSRFMiddleware;
 use Framework\ServiceContainer;
 use Framework\UrlBuilder;
-use Framework\Middleware\CSRFMiddleware;
 
 session_start();
 
@@ -38,10 +41,9 @@ date_default_timezone_set('UTC');
 
 // Bind services
 ServiceContainer::bind(UrlBuilder::class, function () {
-	$url_builder = new UrlBuilder(
+	return new UrlBuilder(
 		'index.php'
 	);
-	return $url_builder;
 });
 
 $middleware_classes = [

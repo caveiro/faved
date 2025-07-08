@@ -7,13 +7,15 @@ use Framework\ControllerInterface;
 use Framework\Exceptions\DataWriteException;
 use Framework\Exceptions\ValidationException;
 use Framework\FlashMessages;
+use Framework\Responses\ResponseInterface;
 use Framework\ServiceContainer;
 use Framework\UrlBuilder;
 use Models\Repository;
+use function Framework\redirect;
 
 class ItemDeleteController implements ControllerInterface
 {
-	public function __invoke()
+	public function __invoke(): ResponseInterface
 	{
 		$repository = ServiceContainer::get(Repository::class);
 
@@ -37,6 +39,6 @@ class ItemDeleteController implements ControllerInterface
 
 		$url_builder = ServiceContainer::get(UrlBuilder::class);
 		$return_url = (isset($_GET['return'])) ? urldecode($_GET['return']) : $url_builder->build('/');
-		header("Location: " . $return_url);
+		return redirect($return_url);
 	}
 }

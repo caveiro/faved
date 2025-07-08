@@ -49,11 +49,6 @@
 		<?php include ROOT_DIR . '/views/partials/flash-messages.php'; ?>
 
         <div class="d-table w-100">
-            <div class="d-none d-sm-table-row fw-bold">
-                <div class="d-table-cell pb-4 pe-2">Image / Title / Url / Tags / Created at</div>
-                <div class="d-none d-sm-table-cell pb-4 pe-2" style="width: 45%">Description / Comments</div>
-                <div class="d-table-cell pb-4"></div>
-            </div>
 			<?php foreach ($items as $item_id => $item) : ?>
                 <div class="d-table-row">
                     <div class="d-table-cell text-break pb-4 pe-2">
@@ -96,7 +91,7 @@
 							<?php echo $item['created_at']; ?>
                         </small>
                     </div>
-                    <div class="d-none d-sm-table-cell text-break pb-4 pe-2">
+                    <div class="d-none d-sm-table-cell text-break pb-4 pe-2" style="width: 45%">
 						<?php echo nl2br(htmlentities($item['description'])); ?>
 
 						<?php if (!empty($item['comments'])) : ?>

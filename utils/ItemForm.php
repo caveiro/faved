@@ -18,6 +18,8 @@ class ItemForm
 	public string $comments;
 	public string $image;
 	public array $tags;
+	public ?string $created_at;
+	public ?string $updated_at;
 	public bool $from_bookmarklet;
 
 
@@ -43,6 +45,8 @@ class ItemForm
 		$this->comments = $form_data['comments'] ?? '';
 		$this->image = $form_data['image'] ?? '';
 		$this->tags = $form_data['tags'] ?? [];
+		$this->created_at = $form_data['created_at'] ?? null;
+		$this->updated_at = $form_data['updated_at'] ?? null;
 
 		$this->from_bookmarklet = $from_bookmarklet;
 	}

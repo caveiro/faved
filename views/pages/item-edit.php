@@ -70,9 +70,26 @@
                     <label for="tags" class="col-sm-2 form-label">Tags</label>
                     <div class="col-sm-10">
                         <input type="hidden" class="labels select2-offscreen" name="tags" style="width:100%"
-                               value="<?php echo htmlspecialchars(implode(', ', $form->tags)); ?>" tabindex="-1">
+                               value="<?php echo htmlspecialchars(implode(', ', $form->tags)); ?>">
                     </div>
                 </div>
+				<?php if (isset($form->created_at)) : ?>
+                    <div class="row mb-3">
+                        <label for="tags" class="col-sm-2 form-label">Created at</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" readonly disabled
+                                   value="<?php echo htmlspecialchars($form->created_at); ?>">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="tags" class="col-sm-2 form-label">Updated at</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" readonly disabled
+                                   value="<?php echo htmlspecialchars($form->updated_at ?? $form->created_at); ?>"
+                            >
+                        </div>
+                    </div>
+				<?php endif; ?>
                 <div class="mt-4 d-flex gap-2 justify-content-center flex-wrap">
 					<?php if ($form->from_bookmarklet) : ?>
                         <button type="submit" name="task" value="save-close" class="btn btn-primary btn-lg"
@@ -107,13 +124,13 @@
 
 					<?php if ($form->item_id) : ?>
                         <button type="button"
-                            class="btn btn-danger btn-lg ms-auto"
-                            onclick="submitRequest(
-                                'DELETE',
-                                '<?php echo $url_builder->build('/item', ['item-id' => $form->item_id, 'return' => htmlspecialchars($return_url)]); ?>',
-                                '<?php echo htmlspecialchars($csrf_token); ?>',
-                                'Are you sure you want to delete this item?'
-                            )"
+                                class="btn btn-danger btn-lg ms-auto"
+                                onclick="submitRequest(
+                                        'DELETE',
+                                        '<?php echo $url_builder->build('/item', ['item-id' => $form->item_id, 'return' => htmlspecialchars($return_url)]); ?>',
+                                        '<?php echo htmlspecialchars($csrf_token); ?>',
+                                        'Are you sure you want to delete this item?'
+                                        )"
                         >
                             Delete
                         </button>

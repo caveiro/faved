@@ -2,6 +2,7 @@
 
 namespace Framework\Middleware;
 
+use Framework\Exceptions\DatabaseNotFound;
 use Framework\ServiceContainer;
 use Framework\UrlBuilder;
 use Models\Repository;
@@ -19,7 +20,17 @@ class AuthenticationMiddleware extends MiddlewareAbstract
 			return $this->next && $this->next->handle();
 		}
 
-		$repository = ServiceContainer::get(Repository::class);
+		// If the database is not set up yet, skip authentication checks
+		try {
+			$repository = ServiceContainer::get(Repository::class);
+		} catch (DatabaseNotFound $e) {
+			return $this->next && $this->next->handle();
+		}
+
+		if (!$repository->checkDatabaseExists()) {
+			return $this->next && $this->next->handle();
+		}
+
 		$auth_enabled = $repository->userTableNotEmpty();
 
 		// If auth is disabled, skip authentication check

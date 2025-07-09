@@ -1,13 +1,24 @@
 <div class="row">
     <div class="col-md-3 col-lg-2">
         <div class="offcanvas-md offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebar-label">
-            <div class="offcanvas-header d-md-none">
-                <h5 class="offcanvas-title" id="sidebar-label">Faved</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebar"
+            <div class="offcanvas-header d-flex p-md-0 mb-md-3">
+                <h5 class="offcanvas-title me-auto" id="sidebar-label">
+                    <img src="/assets/images/logo.png" alt="Faved logo" class="img-fluid " width="48">
+                    Faved
+                </h5>
+
+                <a class="btn btn-outline-secondary  ms-auto"
+                   href="<?php echo $url_builder->build('/settings/auth'); ?>">
+                    <i class="bi bi-sliders2"></i>
+                </a>
+
+                <button type="button" class="btn-close ms-3 d-md-none" data-bs-dismiss="offcanvas"
+                        data-bs-target="#sidebar"
                         aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
                 <div class="sidebar-content">
+
                     <div class="list-group mb-3">
                         <a class="list-group-item list-group-item-action <?php echo $selected_tag === null ? 'active' : ''; ?>"
                            href="<?php echo $url_builder->build('/'); ?>">All items</a>
@@ -23,31 +34,28 @@
         </div>
     </div>
     <div class="col-md-9 col-lg-10">
-        <div class="mb-4 d-flex justify-content-end justify-content-md-start align-items-center flex-wrap gap-2">
+        <div class="mb-4 d-flex justify-content-end align-items-center flex-wrap gap-2">
             <button class="btn btn-outline-dark d-md-none me-auto" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#sidebar" aria-controls="sidebar">
                 <i class="bi bi-list"></i>
             </button>
+
             <a class="btn btn-outline-primary"
                href="<?php echo $url_builder->build('/item', ['return' => urlencode($_SERVER['REQUEST_URI'])]); ?>"
                id="add-item-button" role="button">
                 New item
             </a>
-            <a class="btn btn-outline-danger"
-               href="<?php echo $url_builder->build('/pocket-import'); ?>"
-               role="button">
-                Import from Pocket
-            </a>
-            <a class="btn btn-outline-secondary ms-md-auto"
-               data-bs-title="This is as bookmarklet" data-bs-html="true"
-               data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
-               data-bs-content="A bookmarklet is a bookmark stored in a web browser that contains JavaScript commands that add new features to the browser. Unlike browser extensions, they are lightweight and don't have access to your viewed page until you intentionally click to use them.<br><br> Drag this button to your browser bookmarks bar to save the bookmarklet that will let you quickly add any page you visit to Faved."
-               href='javascript:(function(){ var meta_description = document.querySelector("meta[name=\"description\"]"); if (meta_description) { meta_description = meta_description.getAttribute("content"); } var rspW=700, rspH=700, rspL=parseInt((screen.width/2)-(rspW/2)), rspT=parseInt((screen.height/2)-(rspH/2)); window.open("<?php echo sprintf("%s%s%s", \Framework\getHTTPProtocol(), $_SERVER['HTTP_HOST'], $_SERVER['SCRIPT_NAME']); ?>?route=/item&url="+encodeURIComponent(window.location.href)+"&title="+encodeURIComponent(document.title)+"&description="+((meta_description) ? encodeURIComponent(meta_description) : ""),"add-to-faved","width="+rspW+",height="+rspH+",resizable=yes,scrollbars=yes,status=false,location=false,toolbar=false,left="+rspL+",top="+rspT) })();'>Add
-                to Faved</a>
-            <a class="btn btn-outline-secondary"
-               href="<?php echo $url_builder->build('/settings/auth'); ?>">
-                <i class="bi bi-sliders2"></i>
-            </a>
+            <div class="dropdown">
+                <a class="btn btn-outline-secondary " href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    <i class="bi bi-box-arrow-in-down"></i>
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="<?php echo $url_builder->build('/pocket-import'); ?>">Import from
+                            Pocket</a></li>
+                </ul>
+            </div>
 
         </div>
 

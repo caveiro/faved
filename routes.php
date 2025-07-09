@@ -11,6 +11,7 @@ use Controllers\PocketImportRunController;
 use Controllers\PocketImportViewController;
 use Controllers\SettingsAuthDisableController;
 use Controllers\SettingsAuthViewController;
+use Controllers\SettingsBookmarkletViewController;
 use Controllers\SettingsPasswordUpdateController;
 use Controllers\SettingsUserCreateController;
 use Controllers\SettingsUsernameUpdateController;
@@ -51,6 +52,9 @@ return [
 	],
 	'/settings/auth' => [
 		'GET' => SettingsAuthViewController::class,
+	],
+	'/settings/bookmarklet' => [
+		'GET' => SettingsBookmarkletViewController::class,
 	],
 	'/settings/username' => [
 		'POST' => SettingsUsernameUpdateController::class,

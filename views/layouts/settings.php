@@ -5,6 +5,10 @@
                class="list-group-item list-group-item-action <?php echo ($active_tab === 'auth') ? 'active' : ''; ?>" <?php echo ($active_tab === 'auth') ? 'aria-current="true"' : ''; ?>>
                 Authentication
             </a>
+            <a href="<?php echo $url_builder->build('/settings/bookmarklet'); ?>"
+               class="list-group-item list-group-item-action <?php echo ($active_tab === 'bookmarklet') ? 'active' : ''; ?>" <?php echo ($active_tab === 'auth') ? 'aria-current="true"' : ''; ?>>
+                Bookmarklet
+            </a>
         </div>
         <a class="mb-3 d-block" href="<?php echo $url_builder->build('/'); ?>">
             <i class="bi bi-arrow-left"></i> Back to list

@@ -4,8 +4,16 @@ use Controllers\ItemCreateUpdateController;
 use Controllers\ItemDeleteController;
 use Controllers\ItemEditController;
 use Controllers\ItemsController;
-use Controllers\PocketImportViewController;
+use Controllers\LoginSubmitController;
+use Controllers\LoginViewController;
+use Controllers\LogoutSubmitController;
 use Controllers\PocketImportRunController;
+use Controllers\PocketImportViewController;
+use Controllers\SettingsAuthDisableController;
+use Controllers\SettingsAuthViewController;
+use Controllers\SettingsPasswordUpdateController;
+use Controllers\SettingsUserCreateController;
+use Controllers\SettingsUsernameUpdateController;
 use Controllers\SetupRunController;
 use Controllers\SetupViewController;
 use Controllers\TagDeleteController;
@@ -15,6 +23,13 @@ use Controllers\TagUpdateController;
 return [
 	'/' => [
 		'GET' => ItemsController::class
+	],
+	'/login' => [
+		'GET' => LoginViewController::class,
+		'POST' => LoginSubmitController::class
+	],
+	'/logout' => [
+		'POST' => LogoutSubmitController::class
 	],
 	'/setup' => [
 		'GET' => SetupViewController::class,
@@ -34,5 +49,19 @@ return [
 		'GET' => PocketImportViewController::class,
 		'POST' => PocketImportRunController::class,
 	],
+	'/settings/auth' => [
+		'GET' => SettingsAuthViewController::class,
+	],
+	'/settings/username' => [
+		'POST' => SettingsUsernameUpdateController::class,
+	],
+	'/settings/password' => [
+		'POST' => SettingsPasswordUpdateController::class,
+	],
+	'/settings/create-user' => [
+		'POST' => SettingsUserCreateController::class,
+	],
+	'/settings/delete-user' => [
+		'POST' => SettingsAuthDisableController::class,
+	],
 ];
-

@@ -42,8 +42,13 @@
                data-bs-title="This is as bookmarklet" data-bs-html="true"
                data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover"
                data-bs-content="A bookmarklet is a bookmark stored in a web browser that contains JavaScript commands that add new features to the browser. Unlike browser extensions, they are lightweight and don't have access to your viewed page until you intentionally click to use them.<br><br> Drag this button to your browser bookmarks bar to save the bookmarklet that will let you quickly add any page you visit to Faved."
-               href='javascript:(function(){ var meta_description = document.querySelector("meta[name=\"description\"]"); if (meta_description) { meta_description = meta_description.getAttribute("content"); } var rspW=700, rspH=700, rspL=parseInt((screen.width/2)-(rspW/2)), rspT=parseInt((screen.height/2)-(rspH/2)); window.open("http://<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME']; ?>?route=/item&url="+encodeURIComponent(window.location.href)+"&title="+encodeURIComponent(document.title)+"&description="+((meta_description) ? encodeURIComponent(meta_description) : ""),"add-to-faved","width="+rspW+",height="+rspH+",resizable=yes,scrollbars=yes,status=false,location=false,toolbar=false,left="+rspL+",top="+rspT) })();'>Add
+               href='javascript:(function(){ var meta_description = document.querySelector("meta[name=\"description\"]"); if (meta_description) { meta_description = meta_description.getAttribute("content"); } var rspW=700, rspH=700, rspL=parseInt((screen.width/2)-(rspW/2)), rspT=parseInt((screen.height/2)-(rspH/2)); window.open("<?php echo sprintf("%s%s%s", \Framework\getHTTPProtocol(), $_SERVER['HTTP_HOST'], $_SERVER['SCRIPT_NAME']); ?>?route=/item&url="+encodeURIComponent(window.location.href)+"&title="+encodeURIComponent(document.title)+"&description="+((meta_description) ? encodeURIComponent(meta_description) : ""),"add-to-faved","width="+rspW+",height="+rspH+",resizable=yes,scrollbars=yes,status=false,location=false,toolbar=false,left="+rspL+",top="+rspT) })();'>Add
                 to Faved</a>
+            <a class="btn btn-outline-secondary"
+               href="<?php echo $url_builder->build('/settings/auth'); ?>">
+                <i class="bi bi-sliders2"></i>
+            </a>
+
         </div>
 
 		<?php include ROOT_DIR . '/views/partials/flash-messages.php'; ?>

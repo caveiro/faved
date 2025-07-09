@@ -18,9 +18,11 @@ require_once ROOT_DIR . '/framework/exceptions/DatabaseNotFound.php';
 require_once ROOT_DIR . '/framework/exceptions/ForbiddenException.php';
 require_once ROOT_DIR . '/framework/middleware/MiddlewareAbstract.php';
 require_once ROOT_DIR . '/framework/middleware/CSRFMiddleware.php';
+require_once ROOT_DIR . '/framework/middleware/DatabaseMigrations.php';
+require_once ROOT_DIR . '/framework/middleware/AuthenticationMiddleware.php';
 
 // Load configuration
-require_once ROOT_DIR . '/config.php';
+require_once ROOT_DIR . '/Config.php';
 
 // Load routes
 $routes = require ROOT_DIR . '/routes.php';
@@ -31,7 +33,9 @@ foreach (glob(ROOT_DIR . "/controllers/*.php") as $controller_file) {
 }
 
 use Framework\Application;
+use Framework\Middleware\AuthenticationMiddleware;
 use Framework\Middleware\CSRFMiddleware;
+use Framework\Middleware\DatabaseMigrations;
 use Framework\ServiceContainer;
 use Framework\UrlBuilder;
 
@@ -48,6 +52,8 @@ ServiceContainer::bind(UrlBuilder::class, function () {
 
 $middleware_classes = [
 	CSRFMiddleware::class,
+	DatabaseMigrations::class,
+	AuthenticationMiddleware::class,
 ];
 
 // Load project-specific files and services

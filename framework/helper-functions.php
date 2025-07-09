@@ -3,8 +3,10 @@
 namespace Framework;
 
 
+use Exception;
 use Framework\Responses\PageResponse;
 use Framework\Responses\RedirectResponse;
+use Models\Repository;
 
 function page($page_name, $data)
 {
@@ -32,4 +34,77 @@ function flattenArray(array $array, string $prefix = ''): array
 	}
 
 	return $result;
+}
+
+function validatePasswordAndConfirmation(string $password, string $confirm_password)
+{
+	$password = trim($password);
+
+	if (empty($password)) {
+		throw new Exception('New password cannot be empty');
+	}
+
+	if (!is_string($password) || strlen($password) < 6) {
+		throw new Exception('Password must be at least 6 characters long');
+	}
+
+	$confirm_password = trim($confirm_password);
+
+	if (empty($confirm_password)) {
+		throw new Exception('Password confirmation cannot be empty');
+	}
+
+	if ($password !== $confirm_password) {
+		throw new Exception('Password confirmation does not match the new password');
+	}
+}
+
+function validateUsername(string $username)
+{
+	$username = trim($username);
+
+	if (empty($username)) {
+		throw new Exception('Username cannot be empty');
+	}
+
+	if (!is_string($username) || !preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
+		throw new Exception('Username format is invalid. Please use alphanumeric characters and underscores.');
+	}
+}
+
+function loginUser(int $user_id): void
+{
+	if (!isset($_SESSION)) {
+		session_start();
+	}
+
+	$_SESSION['user_id'] = $user_id;
+}
+
+function logoutUser(): void
+{
+	if (!isset($_SESSION)) {
+		return;
+	}
+
+	$_SESSION['user_id'] = null;
+}
+
+function getLoggedInUser()
+{
+	if (!isset($_SESSION['user_id'])) {
+		return null;
+	}
+
+	$repository = ServiceContainer::get(Repository::class);
+	return $repository->getUser($_SESSION['user_id']);
+}
+
+function getHTTPProtocol()
+{
+	if ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] === 'on' || $_SERVER['HTTPS'] === 1))
+		|| (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')) {
+		return 'https://';
+	}
+	return 'http://';
 }

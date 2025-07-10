@@ -13,7 +13,8 @@ Faved is a simple self-hosted web application to store and organise web links. A
 
 </div>
 
-![image](https://github.com/user-attachments/assets/70c9cf83-43bf-4c7d-8444-d6967aa3ae40)
+![image](https://github.com/user-attachments/assets/32568a95-06f6-4755-8bca-5c43fc2251b3)
+
 
 
 ## Features

@@ -12,6 +12,7 @@ use Framework\UrlBuilder;
 use Models\Repository;
 use Utils\TagList;
 use Utils\TagRenderer;
+use function Framework\getLoggedInUser;
 use function Framework\page;
 use function Utils\getPinnedTags;
 use function Utils\getTagColors;
@@ -61,6 +62,8 @@ class ItemsController implements ControllerInterface
 
 		$csrf_token = CSRFProtection::generateToken();
 
+		$user = getLoggedInUser();
+
 		return page('items', compact(
 			'url_builder',
 			'items',
@@ -70,6 +73,7 @@ class ItemsController implements ControllerInterface
 			'flash',
 			'selected_tag',
 			'csrf_token',
+			'user',
 		))->layout('primary');
 	}
 }

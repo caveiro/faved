@@ -1,7 +1,7 @@
 <div class="row">
-    <div class="col-md-3 col-lg-2">
+    <div class="col-md-3 col-xl-2">
         <div class="offcanvas-md offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebar-label">
-            <div class="offcanvas-header d-flex p-md-0 mb-md-3">
+            <div class="offcanvas-header d-flex gap-1 p-md-0 mb-md-3">
                 <h5 class="offcanvas-title me-auto" id="sidebar-label">
                     <img src="/assets/images/logo.png" alt="Faved logo" class="img-fluid " width="48">
                     Faved
@@ -33,8 +33,8 @@
             </div>
         </div>
     </div>
-    <div class="col-md-9 col-lg-10">
-        <div class="mb-4 d-flex justify-content-end align-items-center flex-wrap gap-2">
+    <div class="col-md-9 col-xl-10">
+        <div class="mb-4 d-flex justify-content-start align-items-center flex-wrap gap-2" style="margin-top: 5px;">
             <button class="btn btn-outline-dark d-md-none me-auto" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#sidebar" aria-controls="sidebar">
                 <i class="bi bi-list"></i>
@@ -56,6 +56,27 @@
                             Pocket</a></li>
                 </ul>
             </div>
+
+			<?php if ($user): ?>
+                <div class="dropdown ms-auto">
+                    <a class="btn btn-outline-secondary " href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <i class="bi bi-person"></i>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><h6 class="dropdown-header"><?php echo htmlspecialchars($user['username']); ?></h6></li>
+                        <li><a class="dropdown-item" href="#" role="button" onclick="submitRequest(
+                                    'POST',
+                                    '<?php echo $url_builder->build('/logout'); ?>',
+                                    '<?php echo htmlspecialchars($csrf_token); ?>',
+                                    null
+                                    )">
+                                <i class="bi bi-box-arrow-right"></i> Logout
+                            </a></li>
+                    </ul>
+                </div>
+			<?php endif; ?>
 
         </div>
 

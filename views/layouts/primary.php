@@ -21,7 +21,7 @@
 
     submitRequest = function (method, action, csrfToken, alertMessage) {
 
-        if (!confirm(alertMessage)) {
+        if (alertMessage && !confirm(alertMessage)) {
             return;
         }
 

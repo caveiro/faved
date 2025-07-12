@@ -1,4 +1,4 @@
-name: Faved
+name: faved
 services:
   apache-php:
     container_name: faved-web-app

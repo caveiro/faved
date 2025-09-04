@@ -6,3 +6,4 @@ RUN apt-get update && \
     docker-php-ext-install zip
 
 WORKDIR /var/www/html
+COPY . .

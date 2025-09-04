@@ -8,4 +8,5 @@ services:
     volumes:
       - .:/var/www/html
       - ./apache-conf:/etc/apache2/sites-enabled
-
+     ports:
+      - "${PORT:-8085}:85"
